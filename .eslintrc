@@ -1,15 +1,9 @@
 {
-  "parser": "babel-eslint",
-  "extends": [
-    "standard",
-    "standard-react"
-  ],
+  "extends": ["react-app"],
   "env": {
     "es6": true
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["import", "jsx-a11y", "react"],
   "parserOptions": {
     "sourceType": "module"
   },

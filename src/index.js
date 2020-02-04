@@ -1,22 +1,42 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from "react";
+import { Slide as TransitionComponent } from "@material-ui/core";
+import Login from "./Login";
+import EsqueciSenha from "./EsqueciSenha";
 
-import styles from './styles.css'
+const Autenticacao = props => {
+  const [isShowingLogin, setShowingLogin] = useState(true);
 
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
+  const esqueciSenha = () => {
+    setShowingLogin(false);
+  };
 
-  render() {
-    const {
-      text
-    } = this.props
+  const login = () => {
+    setShowingLogin(true);
+  };
 
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
-}
+  return (
+    <div>
+      {isShowingLogin && (
+        <TransitionComponent in={isShowingLogin} timeout={500} direction="down">
+          <div>
+            <Login handleClickEsqueciSenha={esqueciSenha} {...props} />
+          </div>
+        </TransitionComponent>
+      )}
+
+      {!isShowingLogin && (
+        <TransitionComponent
+          in={!isShowingLogin}
+          timeout={500}
+          direction="right"
+        >
+          <div>
+            <EsqueciSenha handleClickLogin={login} />
+          </div>
+        </TransitionComponent>
+      )}
+    </div>
+  );
+};
+
+export default Autenticacao;
