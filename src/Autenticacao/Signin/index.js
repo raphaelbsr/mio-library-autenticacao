@@ -8,52 +8,48 @@ import {
   CircularProgress,
   Box
 } from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-// import { ErrorMessage } from "~/components/index";
 import { LoginCard, Form } from "./styles";
-import api from "../services/api";
+import api from "../../services/api";
+import { login } from "../../services/auth";
 import PropTypes from "prop-types";
 
-const ForgotPassword = props => {
+const Signin = props => {
+  const { beforeSubmit, afterSubmit, onClickForgotPassword } = props;
   const [error, setError] = useState();
   const [isLoading, setLoading] = useState(false);
-  const [isDialogOpen, setDialogOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const { onClickLogin } = props;
+  const [password, setPassword] = useState("");
 
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-    onClickLogin();
-  };
-
-  const recoveryPassword = async e => {
+  const doLogin = async e => {
     e.preventDefault();
     setLoading(true);
+    beforeSubmit();
     try {
-      const response = await api.post("/passwords", JSON.stringify({ email }), {
-        headers: {
-          "content-type": "application/json",
-          "DC-SISTEMA": process.env.REACT_APP_ID
+      const response = await api.post(
+        "/sessions",
+        JSON.stringify({ email, password }),
+        {
+          headers: {
+            "content-type": "application/json",
+            "DC-SISTEMA": process.env.REACT_APP_ID
+          }
         }
-      });
-      const { data } = response;
+      );
+      login(response.data.token);
       const status = {
         status: true,
-        msg: data
+        message: "Login realizado com sucesso"
       };
       setLoading(false);
-      setDialogOpen(true);
+      afterSubmit(status);
     } catch (err) {
       const status = {
         status: false,
-        error: "Não foi possível realizar a recuperação de senha"
+        error: "Não foi possível realizar o acesso ao sistema"
       };
-      setError("Não foi possível realizar a recuperação de senha");
+      setError("Não foi possível realizar o acesso ao sistema");
       setLoading(false);
+      afterSubmit(status);
     }
   };
 
@@ -61,11 +57,11 @@ const ForgotPassword = props => {
     <Box>
       <LoginCard raised>
         <CardHeader
-          title="Recuperação de Senha"
-          subheader="Informe o e-mail que você utiliza para acessar no sistema"
+          title="Credenciais"
+          subheader="Informe suas credenciais para acessar o sistema"
         />
         <CardContent>
-          <Form onSubmit={recoveryPassword} method="post">
+          <Form onSubmit={doLogin} method="post">
             <Grid
               container
               spacing={0}
@@ -81,6 +77,17 @@ const ForgotPassword = props => {
                   fullWidth
                   label="E-mail"
                   placeholder="Informe seu e-mail de cadastro"
+                />
+              </Grid>
+              <Grid xs={12} lg={12} md={12} sm={12} xl={12} item>
+                <TextField
+                  onChange={e => setPassword(e.target.value)}
+                  type="password"
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
+                  label="Senha"
+                  placeholder="Informe sua senha"
                 />
               </Grid>
 
@@ -104,7 +111,7 @@ const ForgotPassword = props => {
                   {isLoading ? (
                     <CircularProgress size={24} color="secondary" />
                   ) : (
-                    "Recuperar Senha"
+                    "Entrar"
                   )}
                 </Button>
               </Grid>
@@ -126,31 +133,26 @@ const ForgotPassword = props => {
             fullWidth
             variant="text"
             color="primary"
-            onClick={onClickLogin}
+            onClick={onClickForgotPassword}
           >
-            Ir para o Login
+            Esqueci a senha
           </Button>
         </Grid>
       </Grid>
-      <Dialog
-        open={isDialogOpen}
-        onClose={handleCloseDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Enviamos um e-mail com as instruções para recuperar sua senha!!!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary" autoFocus>
-            Voltar para o Login
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 };
 
-export default ForgotPassword;
+Signin.propTypes = {
+  beforeSubmit: PropTypes.func,
+  afterSubmit: PropTypes.func,
+  onClickForgotPassword: PropTypes.func
+};
+
+Signin.defaultProps = {
+  beforeSubmit: () => {},
+  afterSubmit: () => {},
+  onClickForgotPassword: () => {}
+};
+
+export default Signin;
