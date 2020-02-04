@@ -38,7 +38,7 @@ const Signin = props => {
       login(response.data.token);
       const status = {
         status: true,
-        msg: "Login realizado com sucesso"
+        message: "Login realizado com sucesso"
       };
       setLoading(false);
       afterSubmit(status);

@@ -1,7 +1,7 @@
 {
   "name": "mio-library-autenticacao",
-  "version": "1.0.0",
-  "description": "Um componente para fazer autenticacao em aplicativos da familia mio",
+  "version": "1.0.1",
+  "description": "React component for authentication",
   "author": "raphaelbsr",
   "license": "MIT",
   "repository": "raphaelbsr/mio-library-autenticacao",
