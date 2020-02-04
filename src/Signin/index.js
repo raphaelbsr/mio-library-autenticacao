@@ -9,21 +9,21 @@ import {
   Box
 } from "@material-ui/core";
 import { LoginCard, Form } from "./styles";
-import api from "../services/api-mio-auth";
+import api from "../services/api";
 import { login } from "../services/auth";
 import PropTypes from "prop-types";
 
-const Login = props => {
-  const { antesDeEntrar, depoisDeEntrar, handleClickEsqueciSenha } = props;
+const Signin = props => {
+  const { beforeSubmit, afterSubmit, onClickForgotPassword } = props;
   const [error, setError] = useState();
   const [isLoading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const fazerLogin = async e => {
+  const doLogin = async e => {
     e.preventDefault();
     setLoading(true);
-    antesDeEntrar();
+    beforeSubmit();
     try {
       const response = await api.post(
         "/sessions",
@@ -41,7 +41,7 @@ const Login = props => {
         msg: "Login realizado com sucesso"
       };
       setLoading(false);
-      depoisDeEntrar(status);
+      afterSubmit(status);
     } catch (err) {
       const status = {
         status: false,
@@ -49,7 +49,7 @@ const Login = props => {
       };
       setError("Não foi possível realizar o acesso ao sistema");
       setLoading(false);
-      depoisDeEntrar(status);
+      afterSubmit(status);
     }
   };
 
@@ -61,7 +61,7 @@ const Login = props => {
           subheader="Informe suas credenciais para acessar o sistema"
         />
         <CardContent>
-          <Form onSubmit={fazerLogin} method="post">
+          <Form onSubmit={doLogin} method="post">
             <Grid
               container
               spacing={0}
@@ -133,7 +133,7 @@ const Login = props => {
             fullWidth
             variant="text"
             color="primary"
-            onClick={handleClickEsqueciSenha}
+            onClick={onClickForgotPassword}
           >
             Esqueci a senha
           </Button>
@@ -143,16 +143,16 @@ const Login = props => {
   );
 };
 
-Login.propTypes = {
-  antesDeEntrar: PropTypes.func,
-  depoisDeEntrar: PropTypes.func,
-  handleClickEsqueciSenha: PropTypes.func
+Signin.propTypes = {
+  beforeSubmit: PropTypes.func,
+  afterSubmit: PropTypes.func,
+  onClickForgotPassword: PropTypes.func
 };
 
-Login.defaultProps = {
-  antesDeEntrar: () => {},
-  depoisDeEntrar: () => {},
-  handleClickEsqueciSenha: () => {}
+Signin.defaultProps = {
+  beforeSubmit: () => {},
+  afterSubmit: () => {},
+  onClickForgotPassword: () => {}
 };
 
-export default Login;
+export default Signin;

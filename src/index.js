@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Slide as TransitionComponent } from "@material-ui/core";
-import Login from "./Login";
-import EsqueciSenha from "./EsqueciSenha";
+import Signin from "./Signin";
+import ForgotPassword from "./ForgotPassword";
 
 const Autenticacao = props => {
   const [isShowingLogin, setShowingLogin] = useState(true);
 
-  const esqueciSenha = () => {
+  const handleClickForgotPassword = () => {
     setShowingLogin(false);
   };
 
-  const login = () => {
+  const handleClickLogin = () => {
     setShowingLogin(true);
   };
 
@@ -19,7 +19,10 @@ const Autenticacao = props => {
       {isShowingLogin && (
         <TransitionComponent in={isShowingLogin} timeout={500} direction="down">
           <div>
-            <Login handleClickEsqueciSenha={esqueciSenha} {...props} />
+            <Signin
+              onClickForgotPassword={handleClickForgotPassword}
+              {...props}
+            />
           </div>
         </TransitionComponent>
       )}
@@ -31,7 +34,7 @@ const Autenticacao = props => {
           direction="right"
         >
           <div>
-            <EsqueciSenha handleClickLogin={login} />
+            <ForgotPassword onClickLogin={handleClickLogin} />
           </div>
         </TransitionComponent>
       )}

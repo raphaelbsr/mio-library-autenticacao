@@ -15,22 +15,22 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 // import { ErrorMessage } from "~/components/index";
 import { LoginCard, Form } from "./styles";
-import api from "../services/api-mio-auth";
+import api from "../services/api";
 import PropTypes from "prop-types";
 
-const EsqueciSenha = props => {
+const ForgotPassword = props => {
   const [error, setError] = useState();
   const [isLoading, setLoading] = useState(false);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const { handleClickLogin } = props;
+  const { onClickLogin } = props;
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-    handleClickLogin();
+    onClickLogin();
   };
 
-  const recuperarSenha = async e => {
+  const recoveryPassword = async e => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -65,7 +65,7 @@ const EsqueciSenha = props => {
           subheader="Informe o e-mail que você utiliza para acessar no sistema"
         />
         <CardContent>
-          <Form onSubmit={recuperarSenha} method="post">
+          <Form onSubmit={recoveryPassword} method="post">
             <Grid
               container
               spacing={0}
@@ -126,7 +126,7 @@ const EsqueciSenha = props => {
             fullWidth
             variant="text"
             color="primary"
-            onClick={handleClickLogin}
+            onClick={onClickLogin}
           >
             Ir para o Login
           </Button>
@@ -153,4 +153,4 @@ const EsqueciSenha = props => {
   );
 };
 
-export default EsqueciSenha;
+export default ForgotPassword;

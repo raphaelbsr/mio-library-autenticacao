@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import ExampleComponent from 'mio-library-autenticacao'
+import Autenticacao from "mio-library-autenticacao";
 
 export default class App extends Component {
-  render () {
+  render() {
     return (
       <div>
-        <ExampleComponent text='Modern React component module' />
+        <Autenticacao />
       </div>
-    )
+    );
   }
 }
