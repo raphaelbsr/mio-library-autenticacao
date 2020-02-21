@@ -67,11 +67,11 @@ export default Example;
 
 The component accepts the following props:
 
-| Name         | Type     | Description                                                                      |
-| ------------ | -------- | -------------------------------------------------------------------------------- |
-| onSubmit     | function | Sobrescreva está função caso queira utilizar seu próprio método de autenticação. |
-| beforeSubmit | function | Função callback que é disparada antes do envio de formulário de login.           |
-| afterSubmit  | function | Função callback que é disparada antes do envio de formulário de login.           |
+| Name         | Type     | Description                                                                                                              |
+| ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| onSubmit     | function | Sobrescreva está função caso queira utilizar seu próprio método de autenticação. (e, email, password) => { //faça algo } |
+| beforeSubmit | function | Função callback que é disparada antes do envio de formulário de login.                                                   |
+| afterSubmit  | function | Função callback que é disparada antes do envio de formulário de login.                                                   |
 
 #### Helpers
 

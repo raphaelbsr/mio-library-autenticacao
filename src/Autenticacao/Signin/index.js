@@ -61,7 +61,10 @@ const Signin = props => {
           subheader="Informe suas credenciais para acessar o sistema"
         />
         <CardContent>
-          <Form onSubmit={onSubmit} method="post">
+          <Form
+            onSubmit={onSubmit ? e => onSubmit(e, email, password) : doLogin}
+            method="post"
+          >
             <Grid
               container
               spacing={0}
@@ -151,7 +154,7 @@ Signin.propTypes = {
 };
 
 Signin.defaultProps = {
-  onSubmit: doLogin,
+  onSubmit: null,
   beforeSubmit: () => {},
   afterSubmit: () => {},
   onClickForgotPassword: () => {}
