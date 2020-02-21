@@ -1,23 +1,23 @@
 # mio-library-autenticacao
 
-> React component for authentication
+> Componente React para login
 
 [![NPM](https://img.shields.io/npm/v/mio-library-autenticacao.svg)](https://www.npmjs.com/package/mio-library-autenticacao) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-## Installation
+## Instalação
 
 ```bash
-// with npm
+//npm
 npm install --save mio-library-autenticacao
 
-// with yarn
+//yarn
 yarn add mio-library-autenticacao
 
 ```
 
-## Usage
+## Como utilizar
 
-Before use you must config some .env params in your application
+Você deve definir os seguintes parâmetros de configuração no arquivo .env
 
 ```env
 REACT_APP_ID=app-id-example
@@ -67,21 +67,22 @@ export default Example;
 
 The component accepts the following props:
 
-| Name         | Type     | Description                                                             |
-| ------------ | -------- | ----------------------------------------------------------------------- |
-| beforeSubmit | function | A callback function that is triggered before submitting the login form. |
-| afterSubmit  | function | A callback function that is triggered after submitting the login form.  |
+| Name         | Type     | Description                                                                      |
+| ------------ | -------- | -------------------------------------------------------------------------------- |
+| onSubmit     | function | Sobrescreva está função caso queira utilizar seu próprio método de autenticação. |
+| beforeSubmit | function | Função callback que é disparada antes do envio de formulário de login.           |
+| afterSubmit  | function | Função callback que é disparada antes do envio de formulário de login.           |
 
 #### Helpers
 
 mio-library-autenticacao provides auxiliary methods
 
-| Name            | Return  | Description                                     |
-| --------------- | ------- | ----------------------------------------------- |
-| isAuthenticated | boolean | return true if an user is logged in             |
-| getToken        | string  | return the jwt token saved in local storage     |
-| getData         | json    | return the decoded data that jwt token contains |
-| logout          | void    | deletes jwt token from local storage            |
+| Name            | Return  | Description                                  |
+| --------------- | ------- | -------------------------------------------- |
+| isAuthenticated | boolean | retorna se o usuário está autenticado ou não |
+| getToken        | string  | A token jwt salca no local storage           |
+| getData         | json    | extrai os dados da token jwt                 |
+| logout          | void    | faz o logout do usuário                      |
 
 ## License
 

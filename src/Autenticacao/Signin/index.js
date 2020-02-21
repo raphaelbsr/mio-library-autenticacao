@@ -14,7 +14,7 @@ import { login } from "../../services/auth";
 import PropTypes from "prop-types";
 
 const Signin = props => {
-  const { beforeSubmit, afterSubmit, onClickForgotPassword } = props;
+  const { beforeSubmit, afterSubmit, onSubmit, onClickForgotPassword } = props;
   const [error, setError] = useState();
   const [isLoading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -61,7 +61,7 @@ const Signin = props => {
           subheader="Informe suas credenciais para acessar o sistema"
         />
         <CardContent>
-          <Form onSubmit={doLogin} method="post">
+          <Form onSubmit={onSubmit} method="post">
             <Grid
               container
               spacing={0}
@@ -144,12 +144,14 @@ const Signin = props => {
 };
 
 Signin.propTypes = {
+  onSubmit: PropTypes.func,
   beforeSubmit: PropTypes.func,
   afterSubmit: PropTypes.func,
   onClickForgotPassword: PropTypes.func
 };
 
 Signin.defaultProps = {
+  onSubmit: doLogin,
   beforeSubmit: () => {},
   afterSubmit: () => {},
   onClickForgotPassword: () => {}
