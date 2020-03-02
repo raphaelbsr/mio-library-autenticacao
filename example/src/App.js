@@ -1,22 +1,18 @@
 import React, { Component } from "react";
 
-import { Autenticacao } from "mio-library-autenticacao";
+import { Autenticacao, isAuthenticated } from "mio-library-autenticacao";
 
 export default class App extends Component {
-  doLogin(e) {
-    console.log("Doing Login");
-  }
-
   render() {
+    const isAuth = isAuthenticated();
+    console.log(isAuth ? "Autenticado" : "Nao Autenticado");
     return (
       <div>
-        <Autenticacao
-          onSubmit={(e, email, senha) => {
-            e.preventDefault();
-            console.log(email + " --- " + senha);
-          }}
-        />
+        <Autenticacao />
       </div>
     );
   }
 }
+
+//1583162500
+//1583168508151

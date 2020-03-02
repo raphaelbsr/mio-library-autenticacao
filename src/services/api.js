@@ -16,6 +16,13 @@ api.interceptors.request.use(async config => {
   if (token) {
     conf.headers.Authorization = `Bearer ${token}`;
   }
+  conf.headers["Content-Type"] = "application/json;charset=UTF-8";
+  conf.headers["Access-Control-Allow-Origin"] = "*";
+  conf.headers["Access-Control-Allow-Headers"] =
+    "Access-Control-*, Origin, X-Requested-With, Content-Type, Accept";
+  conf.headers["Access-Control-Allow-Methods"] =
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE";
+  conf.headers["Access-Control-Allow-Credentials"] = true;
   return conf;
 });
 

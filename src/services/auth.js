@@ -7,8 +7,21 @@ const jwtDecode = require("jwt-decode");
  * alterando a palavra template para o nome da aplicação
  */
 export const TOKEN_KEY = process.env.REACT_APP_MIO_AUTH_TOKEN;
-export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
+
+export const isAuthenticated = () => {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (token === null) return false;
+  try {
+    const { exp } = jwtDecode(token);
+    const expDate = new Date(exp * 1000).getTime();
+    const nowDate = new Date().getTime();
+    return nowDate < expDate;
+  } catch (err) {
+    return false;
+  }
+};
+
 export const login = token => {
   localStorage.setItem(TOKEN_KEY, token);
 };
