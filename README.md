@@ -80,7 +80,7 @@ mio-library-autenticacao provides auxiliary methods
 | Name            | Return  | Description                                  |
 | --------------- | ------- | -------------------------------------------- |
 | isAuthenticated | boolean | retorna se o usuário está autenticado ou não |
-| getToken        | string  | A token jwt salca no local storage           |
+| getToken        | string  | A token jwt salva no local storage           |
 | getData         | json    | extrai os dados da token jwt                 |
 | logout          | void    | faz o logout do usuário                      |
 
